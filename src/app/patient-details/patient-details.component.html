@@ -1,0 +1,151 @@
+<div class="grid-container">
+    <div class="grid-item">
+        <div class="card">
+               <div class="card-header">Add Patient</div>
+               <div class="card-body">
+                 <blockquote class="blockquote mb-0"> 
+                    <a (click)="open(content)" > <i class="fa fa-plus " style="font-size: 7rem;"></i></a>
+                 </blockquote>
+               </div>
+             </div>
+           </div>
+   <div class="patient" *ngFor="let data of datas"> 
+    <div class="grid-item">
+     <div class="card">
+            <div class="card-header">
+         <div class="grid-container">
+            <div class="grid-item">
+              {{data.firstName}} {{data.lastName}}
+              <ng-container *ngIf = "data.gender === 'Male'"><i class="fa fa-male" aria-hidden="true"></i></ng-container> 
+              <ng-container *ngIf = "data.gender == 'Female'"><i class="fa fa-female" aria-hidden="true"></i></ng-container> 
+             
+            </div>
+          <div class="grid-item">
+            <p-button
+            
+            [style]="{'height':'2rem','width':'5rem'}" (click)="showBasicDialog(data.firstName,data.appointmentdate)" [disabled] ='data.appointmentdate === null ? false : true' > {{data.appointmentdate === null ? ' book' : data.appointmentdate}}</p-button>
+          </div>
+            
+         </div>
+              </div>
+            <div class="card-body">
+              <blockquote class="blockquote mb-0">
+                <p>
+                   {{data.age}} year old, located in {{data.address}},Can contact in by Moblie No: {{data.mobileNo}} or mail ({{data.email}}).
+                </p>
+
+                <br>
+                <footer class="blockquote-footer">
+                  Join on <cite title="Source Title"> {{data.date}} {{data.finalReport}}  </cite>  &nbsp;
+                  <ng-container *ngIf = "data.appointmentdate != '' && data.appointmentdate != null && data.finalReport === null  ">
+                    <button pButton pRipple type="button" (click)="showBasicDialog2(data.firstName)" label="Update here"  class="p-button-raised p-button-secondary p-button-text"></button>
+                  </ng-container>
+                  
+                </footer>
+              </blockquote>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+  <ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Patient Detail</h4>
+    </div>
+    <div class="modal-body">
+      <form>
+        <div class="form-group">
+            <label for="fname">First name</label>
+            <div class="input-group">
+              <input id="fname" class="form-control" name="firstname" [(ngModel)]="firstname"  placeholder="First Name"   >
+            </div>
+            <label for="lname">Last name</label>
+            <div class="input-group">
+              <input id="lame" class="form-control" name="lastname" [(ngModel)]="lastname" placeholder="Last Name"   >
+            </div>
+            <label for="age">Age</label>
+            <div class="input-group">
+              <input id="age" class="form-control" name="age"  type="number" [(ngModel)]="age" placeholder="age"  >
+            </div>
+
+            <div class="p-field-radiobutton">
+              <p-radioButton name="city" value="Male" [(ngModel)]="gener" inputId="city1"></p-radioButton>
+              <label for="Male">Male </label>
+          </div>
+          <div class="p-field-radiobutton">
+              <p-radioButton name="city" value="Female" [(ngModel)]="gener" inputId="city2"></p-radioButton>
+              <label for="Female">Female</label>
+          </div>
+
+          <label for="dateOfBirth">Date of Admit</label>
+          <div class="input-group">
+            <input id="dateOfBirth" class="form-control" placeholder="yyyy-mm-dd" [(ngModel)]="doa" name="dp" ngbDatepicker #dp="ngbDatepicker">
+            
+          </div>
+          
+          <label for="email">Email</label>
+            <div class="input-group">
+              <input id="email" class="form-control" name="email"  [(ngModel)]="email" type="email" placeholder="Someone@gmail.com"  >
+            </div>
+
+            <label for="number">Moblie Number</label>
+            <div class="input-group">
+              <input id="number" class="form-control" name="moblieno"  [(ngModel)]="moblieno" type="number" placeholder="Moblie Number "  >
+            </div>
+
+            <label for="address">Address</label>
+            <div class="input-group">
+              <input id="text" class="form-control" name="address"  [(ngModel)]="address" type="text" placeholder="Address "  >
+            </div>
+
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Close</button>
+      <button type="button" class="btn btn-outline-dark" (click)="click($event)">Save</button>
+    </div>
+  </ng-template>
+
+
+  <p-dialog header="Set a Appointment" [(visible)]="displayBasic" [style]="{width: '50vw'}">
+    
+    <div class="appointment" >
+
+      <p-dropdown [options]="time" [(ngModel)]="selectedTime" placeholder="Select a timing"></p-dropdown>  
+
+      <br>
+      .<div class="grid-container1">
+        <div  *ngFor="let doc of doctor | filterproduct:selectedTime:docav ">
+         <div class="grid-item1">
+          <div class="p-field-radiobutton">
+            <p-radioButton name="one" [style]="{'font-size': '20px'}" [value]="doc.firstName" [(ngModel)]="selectdoctor" ></p-radioButton> &nbsp;
+            <label for="doc.firstName" [style]="{'font-size': '20px'}">{{doc.firstName}} </label>
+           </div>
+          </div>
+         </div>
+     </div>
+   
+    </div>
+
+   
+    <ng-template pTemplate="footer">
+        <p-button icon="pi pi-check" (click)="saveAppointment()" label="Ok" styleClass="p-button-text"></p-button>
+    </ng-template>
+</p-dialog>
+
+<p-dialog header="Select a propose of visit" [(visible)]="displaybasic2" [style]="{width: '50vw'}">
+    
+  <div class="appointment" >
+
+    <p-dropdown [options]="FinalReportOption" [(ngModel)]="finalReport" placeholder="Select a reason"></p-dropdown>  
+
+    <br>
+    
+  </div>
+
+ 
+  <ng-template pTemplate="footer">
+      <p-button icon="pi pi-check" (click)="final()" label="Update" styleClass="p-button-text"></p-button>
+  </ng-template>
+</p-dialog>

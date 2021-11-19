@@ -1,0 +1,72 @@
+<div class="card">
+    <div class="card">
+        <div class="card-body">Admin Details </div>
+      </div>
+    <p-table #datasv [value]="datas" [rows]="5" [paginator]="true" [globalFilterFields]="['firstName']"
+    [rowHover]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true" >
+    <div class="card shadow p-3 mb-5 bg-primary rounded ">
+    </div>
+        <ng-template pTemplate="header" class="bg-primary ">
+            <tr >
+                <th>UserName</th>
+                <th id="pname">Password</th>
+                <th>Role</th>
+               
+                <th>
+                    <button  pButton pRipple type="button"  icon="pi pi-user-plus" (click)="op.toggle($event)" class="p-button-rounded p-button-text"></button>
+                
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data  let-editing="editing" let-ri="rowIndex">
+            <tr >
+                <td type="number">{{data.userName}}</td>
+                <td>{{data.password}}</td>
+                <td>{{data.role}}</td>
+                <td style="text-align:center">
+                    <!-- --> 
+                    <button  pButton pRipple type="button"  icon="pi pi-trash" class="p-button-rounded p-button-text"  (click)="onRowdeleteInit(data.userName)"></button>    
+               </td> 
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                In total there are {{datas ? datas.length : 0 }} datas.
+            </div>
+        </ng-template>
+    
+    </p-table>
+    </div>
+
+
+<br>
+<app-resp-details></app-resp-details>
+
+<p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true">
+    <ng-template pTemplate>
+        <span class="p-float-label">
+            <input id="float-input" type="text" [(ngModel)]="userName"  pInputText> 
+            <label for="float-input">Username</label>
+        </span><br>
+        <span class="p-float-label">
+            <input id="float-input" type="text" [(ngModel)]="password"  pInputText> 
+            <label for="float-input">Password</label>
+        </span><br>
+        <div class="p-field-radiobutton">
+            <p-radioButton name="city" value="Admin" [(ngModel)]="selectedValue" inputId="city1"></p-radioButton>
+            <label for="Admin">Admin </label>
+        </div>
+        <div class="p-field-radiobutton">
+            <p-radioButton name="city" value="Resp" [(ngModel)]="selectedValue" inputId="city2"></p-radioButton>
+            <label for="Resp">Receptionist </label>
+        </div>
+        <div class="p-field-radiobutton">
+            <p-radioButton name="city" value="Doctor" [(ngModel)]="selectedValue" inputId="city3"></p-radioButton>
+            <label for="Doctor"> Doctor </label>
+        </div>
+
+       
+          <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-text"  (click)="addAdmin(op, $event)"></button>
+
+    </ng-template>
+</p-overlayPanel>

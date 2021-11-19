@@ -1,0 +1,71 @@
+<div class="card">
+    <div class="card">
+        <div class="card-body"> Receptionist Details </div>
+      </div>
+    <p-table #datasv [value]="datas" [rows]="5" [paginator]="true" [globalFilterFields]="['firstName']"
+    [rowHover]="true" currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true" >
+    <div class="card shadow p-3 mb-5 bg-primary rounded ">
+    </div>
+        <ng-template pTemplate="header" class="bg-primary ">
+            <tr >
+                <th>FristName</th>
+                <th id="pname">LastName</th>
+                <th>Date</th>
+                <th>Moblie Number</th>
+                <th> 
+                    <button  pButton pRipple type="button"  icon="pi pi-user-plus" (click)="op.toggle($event)" class="p-button-rounded p-button-text"></button>
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-data  let-editing="editing" let-ri="rowIndex">
+            <tr >
+                <td type="number">{{data.firstName}}</td>
+                <td>{{data.lastName}}</td>
+                <td>{{data.date}}</td>
+                <td>
+                    {{data.mobileNo}}
+                </td>
+               
+                <td style="text-align:center">
+                    <button  pButton pRipple type="button"  icon="pi pi-trash" class="p-button-rounded p-button-text"  (click)="onRowdeleteInit(data.userName)"></button>    
+                </td>
+                    <!-- <button  pButton pRipple type="button"  icon="pi pi-pencil" (click)="onRowEditInit(data)" class="p-button-rounded p-button-text"></button>
+                    <button  pButton pRipple type="button"  icon="pi pi-trash" class="p-button-rounded p-button-text"  (click)="onRowdeleteInit(data.Product_Id)"></button>    
+                </td> -->
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                In total there are {{datas ? datas.length : 0 }} datas.
+            </div>
+        </ng-template>
+    
+    </p-table>
+    </div>
+
+
+
+<p-overlayPanel #op [dismissable]="true" [showCloseIcon]="true">
+    <ng-template pTemplate>
+        <span class="p-float-label">
+            <input id="float-input" type="text" [(ngModel)]="FirstName" pInputText> 
+            <label for="float-input">First Name</label>
+        </span><br>
+        <span class="p-float-label">
+            <input id="float-input" type="text" [(ngModel)]="LastName" pInputText> 
+            <label for="float-input">Last Name</label>
+        </span><br>
+        <span class="p-float-label">
+            <input id="float-input" type="text" mask="99/99/9999" [(ngModel)]="date" placeholder="01/10/2022" slotChar="mm/dd/yyyy" pInputText> 
+            <label for="float-input">Date</label>
+        </span><br>
+        <span class="p-float-label">
+            <input id="float-input" type="text" [(ngModel)]="MobileNo" pInputText> 
+            <label for="float-input">Mobile number</label>
+        </span><br>
+
+        <button pButton pRipple type="button" icon="pi pi-times" class="p-button-rounded p-button-text p-button-plain"></button>
+          <button pButton pRipple type="button" icon="pi pi-check" class="p-button-rounded p-button-text" (click)="addReps(op, $event)"></button>
+
+    </ng-template>
+</p-overlayPanel>

@@ -29,7 +29,8 @@ import {DialogModule} from 'primeng/dialog';
 import {DropdownModule} from 'primeng/dropdown';
 import { FilterproductPipe } from './filterproduct.pipe';
 import { CommonModule } from '@angular/common';
-import {ToastModule} from 'primeng/toast'; 
+import {ToastModule} from 'primeng/toast';
+import { AnyComponetComponent } from './any-componet/any-componet.component'; 
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {ToastModule} from 'primeng/toast';
     RespDetailsComponent,
     PatientDetailsComponent,
     DoctorDetailsComponent,
-    FilterproductPipe
+    FilterproductPipe,
+    AnyComponetComponent
   ],
   schemas: [
     CUSTOM_ELEMENTS_SCHEMA
